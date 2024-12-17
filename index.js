@@ -65,6 +65,7 @@ app.get('/translation', (req, res) => {
 const server = http.createServer(app);
 
 initializeSocket(server);
+// i18nextConfig(app);
 connectDB();
 
 const port = process.env.PORT || 8000;
