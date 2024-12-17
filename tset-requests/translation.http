@@ -1,0 +1,2 @@
+GET http://localhost:8000/translation
+Accept-Language: ar

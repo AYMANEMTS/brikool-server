@@ -1,0 +1,7 @@
+{
+  "validationFailed": "فشل التحقق",
+  "incorrectEmailOrPassword": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+  "current_password_incorrect": "كلمة المرور الحالية غير صحيحة",
+  "user_not_found": "المستخدم غير موجود",
+  "password_changed_successfully": "تم تغيير كلمة المرور بنجاح"
+}

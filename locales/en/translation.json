@@ -1,0 +1,7 @@
+{
+  "validationFailed": "Validation Failed",
+  "incorrectEmailOrPassword": "Incorrect email or password",
+  "current_password_incorrect": "Current password is incorrect",
+  "user_not_found": "User not found",
+  "password_changed_successfully": "Password changed successfully"
+}

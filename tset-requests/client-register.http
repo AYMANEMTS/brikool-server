@@ -1,0 +1,10 @@
+POST http://localhost:8000/register-client
+Content-Type: application/json
+
+{
+  "name": "aymane moutousse",
+  "email": "oujdimraymane@gmail.com",
+  "password": "123456789"
+}
+
+###

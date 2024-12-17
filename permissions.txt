@@ -1,0 +1,13 @@
+view_users
+edit_users
+delete_users
+view_category
+edit_category
+delete_category
+edit_permissions
+edit_jobs
+delete_jobs
+delete_comments
+
+
+
