@@ -43,6 +43,10 @@ app.use(
       secret: "secret_session",
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        secure: process.env.NODE_ENV === 'production', // Only send cookies over HTTPS in production
+        httpOnly: true, // Prevent access from JavaScript
+    },
     })
   );
 app.use(cookieParser());
