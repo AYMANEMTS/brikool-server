@@ -35,18 +35,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors({
     origin: 'https://brikool-client.vercel.app',
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 app.use(
     session({
       secret: "secret_session",
       resave: false,
       saveUninitialized: false,
-      cookie: {
-        secure: process.env.NODE_ENV === 'production', // Only send cookies over HTTPS in production
-        httpOnly: true, // Prevent access from JavaScript
-    },
     })
   );
 app.use(cookieParser());
@@ -70,7 +65,7 @@ app.get('/translation', (req, res) => {
 
 const server = http.createServer(app);
 
-// initializeSocket(server);
+initializeSocket(server);
 // i18nextConfig(app);
 connectDB();
 
@@ -78,3 +73,8 @@ const port = process.env.PORT || 8000;
 server.listen(port, () => {
     console.log('Server is running on port ' + port);
 });
+
+
+
+
+
