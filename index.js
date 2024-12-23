@@ -35,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors({
     origin: 'https://brikool-client.vercel.app',
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
 app.use(
     session({
