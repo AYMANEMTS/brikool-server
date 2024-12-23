@@ -36,7 +36,7 @@ app.use(cors({
     origin: 'https://brikool-client.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['*']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],  // Ensure Cookie header is allowed
 }));
 app.use(
     session({
