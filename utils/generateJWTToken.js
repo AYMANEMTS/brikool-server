@@ -6,9 +6,9 @@ const generateJWTToken = (res, userId) => {
     })
 
     res.cookie('jwt', token, {
-        httpOnly: true, // cookie cannot be accessed by client side scripts
+        httpOnly: true, 
         secure: process.env.NODE_ENV === 'production', 
-        sameSite: 'strict', // cookie will only be set on the same site
+        sameSite: 'strict', 
         maxAge: 30 * 24 * 60 * 60 * 1000,
     })
 
