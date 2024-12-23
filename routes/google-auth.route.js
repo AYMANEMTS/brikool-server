@@ -26,7 +26,7 @@ Router.get("/auth/google/callback", passport.authenticate("google", {
         maxAge: 30 * 24 * 60 * 60 * 1000,
       });
 
-      res.redirect(process.env.FRONTEND_URL);
+      res.redirect(`${process.env.FRONTEND_URL}?jwt=${token}`);
     }
 );
 module.exports = Router;
