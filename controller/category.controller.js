@@ -14,6 +14,7 @@ const getAllCategory = async (req,res) => {
         const category = await Category.find({}).sort({createdAt: -1})
         res.status(200).json({category})
     }catch (e) {
+        console.log(e)
         res.status(500).json({error:e})
     }
 }

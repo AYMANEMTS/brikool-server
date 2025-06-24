@@ -23,6 +23,7 @@ const getJobs = async (req, res) => {
 
         return res.status(200).json(jobsWithRatings);
     } catch (e) {
+        console.log(e)
         return res.status(500).json({ error: e.message });
     }
 };
