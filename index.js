@@ -33,7 +33,7 @@ app.use(i18nextMiddleware.handle(i18next))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
-    origin: 'https://brikool-client.vercel.app',
+    origin: ['https://brikool-client.vercel.app', 'http://localhost:3000','https://brikool-client-lilac.vercel.app'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
