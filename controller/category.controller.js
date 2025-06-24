@@ -1,4 +1,5 @@
 const Category = require('../models/Category')
+const {put} = require("@vercel/blob");
 
 const showCategory = async (req,res) => {
     try {
@@ -22,7 +23,13 @@ const getAllCategory = async (req,res) => {
 const storeCategory = async (req,res) => {
     try {
         const {name} = req.body
-        const image = req.file ? req.file.path : undefined;
+        let image =  undefined;
+        if (req.file) {
+            const fileName = `category/${Date.now()}-${req.file.originalname}`;
+
+            const result = await put(fileName, req.file.buffer, { access: 'public' });
+            image = result.url
+        }
         const category = await Category.create({name, image})
         res.status(201).json(category)
     }catch (e) {
@@ -33,20 +40,30 @@ const storeCategory = async (req,res) => {
 const updateCategory = async (req, res) => {
     try {
         const { name } = req.body;
-        const image = req.file ? req.file.path : undefined;
+        let image;
+
+        if (req.file) {
+            const fileName = `category/${Date.now()}-${req.file.originalname}`;
+            const result = await put(fileName, req.file.buffer, { access: 'public' });
+            image = result.url;
+        }
+
         const updatedData = { name };
         if (image) updatedData.image = image;
+
         const updatedCategory = await Category.findByIdAndUpdate(req.params.id, updatedData, { new: true });
 
         if (!updatedCategory) {
             return res.status(404).json({ message: "Category not found" });
         }
+
         res.status(200).json(updatedCategory);
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Server error" });
     }
 };
+
 
 
 const destroyCategory = async (req,res) => {
