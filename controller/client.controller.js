@@ -1,5 +1,6 @@
 const Client = require("../models/User")
 const Job = require("../models/Job");
+const {put} = require("@vercel/blob");
 
 const storeClient = async (req, res) => {
     try {
@@ -24,21 +25,32 @@ const showClient = async (req,res) => {
     }
 }
 
-const updateClient = async (req,res) => {
+const updateClient = async (req, res) => {
     try {
-        const actualClient = await Client.findById(req.userId)
-        const {name,city} = req.body
-        const image = req.file ? req.file.path : undefined;
+        const actualClient = await Client.findById(req.userId);
+        const { name } = req.body;
+        const city = JSON.parse(req.body.city);
+
+        let image;
+        if (req.file) {
+            const fileName = `clients/${Date.now()}-${req.file.originalname}`;
+            const result = await put(fileName, req.file.buffer, { access: 'public' });
+            image = result.url;
+        }
+
         actualClient.name = name;
         actualClient.city = city;
         if (image) actualClient.image = image;
+
         await actualClient.save();
+
         return res.status(200).json(actualClient);
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({error: error})
+        console.error(error);
+        return res.status(500).json({ error: "Server error" });
     }
-}
+};
+
 
 const destroyClient = async (req, res) => {
     try {
