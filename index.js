@@ -65,7 +65,7 @@ app.get('/translation', (req, res) => {
 
 const server = http.createServer(app);
 
-initializeSocket(server);
+// initializeSocket(server);
 // i18nextConfig(app);
 connectDB();
 
