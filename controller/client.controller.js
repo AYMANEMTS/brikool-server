@@ -29,7 +29,7 @@ const updateClient = async (req, res) => {
     try {
         const actualClient = await Client.findById(req.userId);
         const { name } = req.body;
-        const city = JSON.parse(req.body.city);
+        const city = req.body.city;
 
         let image;
         if (req.file) {
