@@ -57,6 +57,7 @@ module.exports = (passport) => {
               const result = await newUser.save();
               return cb(null, result);
             } catch (err) {
+              console.log(err)
               return cb(err, null);
             }
           }
