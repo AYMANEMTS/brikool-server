@@ -33,10 +33,10 @@ exports.createClientValidation = [
     check('email')
         .notEmpty().withMessage(requiredFieldMessage)
         .isEmail().withMessage(invalidEmail)
-        .custom((val) => User.findOne({ email: val })
-            .then((user) => {
-                if (user){
-                    return Promise.reject(new Error(userAlreadyExists));
+        .custom((val) =>
+            User.findOne({ email: val }).then((user) => {
+                if (user) {
+                    return Promise.reject(userAlreadyExists); // Don't wrap in `Error`
                 }
             })
         ),
