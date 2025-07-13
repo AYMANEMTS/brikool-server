@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const express = require('express');
 const http = require('http');
-const routes = require('./routes/index')
+const routes = require('./routes/index');
 const session = require("express-session");
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -13,10 +15,8 @@ const i18nextBackend = require("i18next-fs-backend");
 const i18nextMiddleware = require("i18next-http-middleware");
 const path = require("path");
 
-
-require('dotenv').config();
-
 const app = express();
+const server = http.createServer(app);
 
 i18next
     .use(i18nextBackend)
@@ -26,8 +26,9 @@ i18next
         backend: {
             loadPath: "./locales/{{lng}}/translation.json"
         }
-    })
-app.use(i18nextMiddleware.handle(i18next))
+    });
+
+app.use(i18nextMiddleware.handle(i18next));
 
 // Middleware
 app.use(express.json());
@@ -37,44 +38,43 @@ app.use(cors({
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
-app.use(
-    session({
-      secret: "secret_session",
-      resave: false,
-      saveUninitialized: false,
-    })
-  );
+app.use(session({
+    secret: "secret_session",
+    resave: false,
+    saveUninitialized: false,
+}));
 app.use(cookieParser());
 app.use(passport.initialize());
 
-// Static folder for uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-require("./config/oauth")(passport)
+require("./config/oauth")(passport);
 
 // Routes
-app.use(routes)
+app.use(routes);
 app.use(errorHandler);
+
 app.get('/translation', (req, res) => {
-    const t = req.t
-    res.json({message: t('test')
-})
-})
-
-
-
-const server = http.createServer(app);
-
-// initializeSocket(server);
-// i18nextConfig(app);
-connectDB();
-
-const port = process.env.PORT || 8000;
-server.listen(port, () => {
-    console.log('Server is running on port ' + port);
+    const t = req.t;
+    res.json({ message: t('test') });
 });
 
 
+const startServer = async () => {
+    try {
+        await connectDB();
+        console.log('Connected to DB');
 
+        const port = process.env.PORT || 8000;
+        server.listen(port, () => {
+            console.log('Server is running on port ' + port);
+        });
 
+        // initializeSocket(server);
+    } catch (err) {
+        console.error('Failed to connect to DB:', err);
+        process.exit(1);
+    }
+};
 
+startServer();
