@@ -29,8 +29,13 @@ const updateClient = async (req, res) => {
     try {
         const actualClient = await Client.findById(req.userId);
         const { name } = req.body;
-        const city = req.body.city;
 
+         let city = req.body.city;
+        if (typeof city === 'string') {
+           city = JSON.parse(city);
+        } else {
+            city = actualClient.city;
+        }
         let image;
         if (req.file) {
             const fileName = `clients/${Date.now()}-${req.file.originalname}`;
