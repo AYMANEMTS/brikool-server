@@ -36,6 +36,7 @@ const updateClient = async (req, res) => {
         } else {
             city = actualClient.city;
         }
+
         let image;
         if (req.file) {
             const fileName = `clients/${Date.now()}-${req.file.originalname}`;
